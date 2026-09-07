@@ -1,0 +1,20 @@
+# Core ADK
+google-adk>=2.0.0
+
+# Evaluation support
+# (included in google-adk[eval] but listed explicitly for clarity)
+
+# Deployment
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+
+# MCP support (bundled with google-adk but explicit for clarity)
+# google-adk[mcp] or google-adk[extensions]
+
+# Type checking / linting (dev)
+# ruff
+# mypy
+
+# Testing
+# pytest
+# pytest-asyncio

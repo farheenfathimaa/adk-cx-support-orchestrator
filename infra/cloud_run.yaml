@@ -1,0 +1,48 @@
+# Cloud Run service configuration
+# Deploy with: gcloud run deploy cx-support-orchestrator --config infra/cloud_run.yaml
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: cx-support-orchestrator
+  labels:
+    app: cx-support-orchestrator
+spec:
+  template:
+    metadata:
+      annotations:
+        # Allow sufficient time for cold starts with ADK
+        run.googleapis.com/startup-cpu-boost: "true"
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"
+    spec:
+      containers:
+        - image: gcr.io/PROJECT_ID/cx-support-orchestrator
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ADK_MODEL
+              value: "gemini-3.5-flash-lite"
+            - name: LOG_LEVEL
+              value: "INFO"
+            - name: MAX_CRITIC_ITERATIONS
+              value: "3"
+            - name: AMBIGUITY_THRESHOLD
+              value: "0.6"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+  traffic:
+    - latestRevision: true
+      percent: 100

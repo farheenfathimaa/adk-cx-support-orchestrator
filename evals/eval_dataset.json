@@ -1,0 +1,523 @@
+{
+  "eval_set_id": "cx_triage_v1",
+  "description": "Evaluation set for the CX support triage orchestrator — 25 sample tickets covering all four categories with varying difficulty.",
+  "eval_cases": [
+    {
+      "eval_id": "billing_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I was charged twice for my subscription this month. My account is CUST-001. Can you refund the extra charge?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm sorry about the double charge, Alice. I can see your Pro subscription (ORD-1042). I've initiated a refund for the duplicate charge — it will be processed to your original payment method within 5-10 business days."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "double charge refund"}},
+              {"name": "get_customer_info", "args": {"customer_id": "CUST-001"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "billing_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I want to upgrade from the Free plan to Pro. How does billing work?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "You can upgrade at Settings > Subscription > Change Plan. Upgrades take effect immediately with prorated billing — you'll only pay the difference for the remainder of your current billing cycle."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "upgrade plan billing prorated"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "billing_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "My payment failed and I can't access my account. Customer ID is CUST-004."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I see your account (David Kim, CUST-004) is currently suspended due to a payment issue. Please update your payment method at Settings > Billing > Payment Methods. Once updated, your account will be reactivated automatically."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "payment failed account suspended"}},
+              {"name": "get_customer_info", "args": {"customer_id": "CUST-004"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "billing_004",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "How do I cancel my subscription and get a refund for the unused portion?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "To cancel, go to Settings > Subscription > Cancel Plan. Since you're requesting a refund for unused time, I've noted your cancellation request. Refunds for the remaining billing period are processed within 5-10 business days to your original payment method."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "cancel subscription refund unused"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "technical_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I can't log in — I keep getting an 'invalid credentials' error. I've tried resetting my password but the email never arrives."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm sorry you're having trouble logging in. Please check your spam/junk folder for the password reset email. If it's not there, try requesting the reset again. The link expires in 24 hours. If you still don't receive it, contact support@example.com and we'll help you recover your account."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "password reset email not received login invalid"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "technical_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I'm hitting 429 rate limit errors from the API. I'm on the Free plan. How do I fix this?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Free-tier accounts are limited to 100 requests per minute. To resolve 429 errors: implement exponential backoff in your code, or upgrade to Pro (1,000 req/min) at Settings > Subscription. Rate-limit headers (X-RateLimit-Remaining) are included in every API response to help you monitor usage."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "API rate limit 429 error"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "technical_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "The dashboard is loading very slowly and sometimes shows a blank page. I've tried Chrome and Firefox."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Sorry about the slow dashboard. Try: 1) Clear your browser cache, 2) Disable any VPN or proxy, 3) Check our status page at status.example.com for ongoing incidents. If the issue persists after these steps, please let us know and we'll investigate further."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "dashboard slow blank page connection"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "technical_004",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I'm a developer integrating your API. The webhook endpoint keeps timing out after 30 seconds. Customer ID CUST-003."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Hi Carol! Webhook timeouts can happen due to heavy processing in your handler. Our webhooks have a 30-second timeout — ensure your endpoint responds within that window and process heavy work asynchronously. As an Enterprise customer, you also have access to our priority support channel for integration issues."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "webhook timeout API integration"}},
+              {"name": "get_customer_info", "args": {"customer_id": "CUST-003"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "refund_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I purchased a Pro plan 2 weeks ago but it doesn't meet my needs. I want a full refund."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "You're within our 30-day refund window, so you're eligible for a full refund. Go to Settings > Billing > Transaction History, select your Pro plan purchase, and click 'Request Refund'. The refund will be processed to your original payment method within 5-10 business days."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "refund policy 30 days"}},
+              {"name": "knowledge_base_search", "args": {"query": "how to request refund"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "refund_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I bought an annual Enterprise plan 4 months ago and now I want my money back."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I understand you'd like a refund. Our policy allows prorated refunds between 30-90 days at our discretion. Since your purchase was 4 months (120+ days) ago, it falls outside our standard refund window. However, I can escalate your request to our billing team for review. Would you like me to do that?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "refund policy 90 days"}},
+              {"name": "knowledge_base_search", "args": {"query": "refund process request"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "refund_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I was charged for a subscription I cancelled last month. Please refund immediately."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm sorry about the unexpected charge after cancellation. Let me look into this — please provide your customer ID or order number so I can verify the cancellation and process your refund promptly."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "cancelled subscription still charged refund"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "refund_004",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I want to return the additional storage add-on I bought yesterday. It's not compatible with my setup."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Since you purchased the storage add-on yesterday, you're well within the 30-day refund window. Please go to Settings > Billing > Transaction History, find the storage add-on purchase, and click 'Request Refund'. The full amount will be returned to your original payment method within 5-10 business days."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "refund add-on purchase"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "general_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I want to delete my account permanently. How do I do that?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "To delete your account, go to Settings > Account > Delete Account. Please note this action is irreversible — all your data will be permanently removed within 30 days. Any active subscriptions will be cancelled and remaining balance refunded. Would you like to proceed?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "delete account permanently"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "general_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "What features are included in the Enterprise plan?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "The Enterprise plan includes everything in Pro plus: custom integrations, dedicated account manager, 99.9% SLA, advanced analytics, and 24/7 priority support. For a full comparison, visit our features page at example.com/features."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "enterprise plan features"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "general_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "How can I reach your support team? I need urgent help."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "You can reach us via: live chat (fastest — Mon-Fri 9am-6pm EST, under 2 min response), email at support@example.com (under 4 hours), or phone at 1-800-555-0123. For urgent issues, live chat is your best option."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "contact support urgent help"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "general_004",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Can you tell me about your company's data privacy practices?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "We take data privacy seriously. For detailed information about our privacy practices, data handling, and GDPR compliance, please visit our privacy policy at example.com/privacy or email privacy@example.com. Our team can address specific questions about your data."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "data privacy policy"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "ambiguous_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Your product stopped working and I want my money back."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm sorry to hear the product isn't working for you. Let me help resolve both issues. For the technical problem: could you describe what stopped working? For the refund request: since you've indicated you want your money back, I'll need to check your account details. Could you share your customer ID so I can look into both the technical issue and process your refund request?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "product not working refund"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "ambiguous_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I was charged but I can't access the service I paid for."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I understand the frustration of paying but not being able to access the service. Let me help — I'll need your customer ID to check your account status and payment records. This could be a billing synchronization issue or an account access problem, and I'll resolve both angles for you."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "charged but cannot access service"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "ambiguous_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "The app crashes every time I try to upgrade my plan. This is ridiculous — I want a refund."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm sorry you're experiencing both a technical issue and frustration with our service. Let me address both: for the app crash, try clearing your cache or using a different browser to access Settings > Subscription > Change Plan. If it still crashes, this may be a bug we need to investigate. For the refund request — I've noted your intent and can process it once we confirm your purchase details. Could you share your customer ID?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "app crash upgrade plan"}},
+              {"name": "knowledge_base_search", "args": {"query": "refund request"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "edge_001",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "asdfghjkl"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I'm not sure I understand your message. Could you please describe your question or issue in more detail? I'm here to help with billing, technical support, refunds, or general questions about our service."}]
+          },
+          "intermediate_data": {
+            "tool_uses": []
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "edge_002",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Hi, I just wanted to say thank you for the great service!"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Thank you so much for the kind words! We're glad you're enjoying the service. Is there anything else I can help you with today?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": []
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "edge_003",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I need to update my email address on the account and also my payment method is about to expire."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Sure, I can help with both. To update your email address: go to Settings > Account > Profile > Edit Email. To update your payment method before it expires: go to Settings > Billing > Payment Methods > Add New Card. Both changes take effect immediately."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "update email payment method"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "billing_005",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Why was I charged $199.99 when my plan says $149.99? Order ORD-1078."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Hi Carol! I can see your recent order ORD-1078 for $199.99 — this appears to be for the Additional Storage 500GB add-on, which is priced separately from your Enterprise Suite plan ($1,499.99/year). The storage add-on is a one-time charge. Let me know if you have questions about this charge."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "unexpected charge difference"}},
+              {"name": "get_customer_info", "args": {"customer_id": "CUST-003"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "technical_005",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "My team members can't access the shared dashboard even though I shared the link."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Shared dashboard access issues can happen for a few reasons: 1) The link may have expired — try generating a new share link, 2) Team members may need to be invited via Settings > Team > Members, 3) Check that their accounts are active. If the issue persists, please share your customer ID and I'll investigate further."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "shared dashboard access team members"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "refund_005",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I accidentally purchased the wrong plan. Can I swap it for the other one and get the difference refunded?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "No problem! You can change your plan at Settings > Subscription > Change Plan. If you're downgrading, the difference will be credited to your account. If upgrading, you'll pay the prorated difference. For a direct refund of the difference instead of a credit, please email billing-support@example.com with your order number."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "change plan swap refund difference"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "ambiguous_004",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "I'm a free user trying to use the API but it keeps rejecting my requests. I was thinking of upgrading but now I'm not sure it's worth it."}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "I understand your frustration. Free-tier API access is limited to 100 requests/minute, which may not be enough for your use case. Upgrading to Pro gives you 1,000 req/min plus additional features. The upgrade is prorated, so you only pay for the remainder of your billing cycle. You can try it at Settings > Subscription > Change Plan. Would you like help with anything else?"}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "free tier API limit upgrade"}},
+              {"name": "knowledge_base_search", "args": {"query": "upgrade plan billing"}}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "general_005",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [{"text": "Do you have an SLA for your support response times?"}]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [{"text": "Response times depend on your plan: Free users get email support (under 24 hours), Pro users get priority email and chat (under 4 hours), and Enterprise customers get 24/7 priority support with a 99.9% SLA (under 1 hour for critical issues). For specific SLA terms, check your contract or email enterprise@example.com."}]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {"name": "knowledge_base_search", "args": {"query": "SLA support response times"}}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

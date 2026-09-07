@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7,
+    "final_response_match_v2": 0.7,
+    "rubric_based_final_response_quality_v1": {
+      "threshold": 0.7,
+      "rubrics": [
+        {
+          "rubricId": "tone",
+          "rubricContent": {
+            "textProperty": "The response must be professional, empathetic, and free of jargon."
+          }
+        },
+        {
+          "rubricId": "accuracy",
+          "rubricContent": {
+            "textProperty": "The response must address the customer's actual issue with correct information."
+          }
+        },
+        {
+          "rubricId": "policy_compliance",
+          "rubricContent": {
+            "textProperty": "The response must not promise things outside company policy (e.g. unconditional refunds beyond 30 days, unauthorised discounts)."
+          }
+        },
+        {
+          "rubricId": "grounding",
+          "rubricContent": {
+            "textProperty": "The response should reference specific knowledge base articles or CRM data when available, not hallucinate details."
+          }
+        }
+      ]
+    }
+  }
+}
