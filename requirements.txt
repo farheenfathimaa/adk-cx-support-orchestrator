@@ -1,5 +1,5 @@
 # Core ADK
-google-adk>=2.0.0
+google-adk>=2.0.0,<3
 
 # Evaluation support
 # (included in google-adk[eval] but listed explicitly for clarity)
@@ -10,6 +10,9 @@ uvicorn[standard]>=0.30.0
 
 # MCP support (bundled with google-adk but explicit for clarity)
 # google-adk[mcp] or google-adk[extensions]
+
+# HTTP client (upgraded for ADK >= 2.x compatibility)
+aiohttp>=3.10.0
 
 # Type checking / linting (dev)
 # ruff
